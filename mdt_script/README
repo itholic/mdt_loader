@@ -6,6 +6,7 @@
         - 3번째 줄: partition_key 컬럼
         - 4번째 줄: partition_date 컬럼, 첫번째 줄에 나열된 컬럼중 몇 번째 컬럼을 이용해 만들것인지
         - 5번째 줄 이후: 공간 데이터 타입, 공간 컬럼을 몇 번째 컬럼의 데이터를 이용해 만들것인지
+            - 공간 데이터가 없을 경우 None
 
 2. python 02.make_data_from_csv [csv경로] 를 통해, parsed_data/ 경로에 dat 파일 생성
     - 이 때, table_schema/ 경로에 해당 csv 파일명과 같은 이름의 스키마 파일이 있어야함(확장자 제외)
