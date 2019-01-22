@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
-
-"""로딩이 완료된 데이터에대한 SELECT, COUNT 성능을 시험하기 위한 프로그램"""
+#!/bin/env python
+# coding: utf-8
 
 import time
 

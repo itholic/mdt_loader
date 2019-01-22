@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
-
-"""테이블 스키마로부터 정보를 읽어 테이블을 생성하는 프로그램"""
+#!/bin/env python
+# coding: utf-8
 
 import sys
 
@@ -40,7 +39,7 @@ q_create_local = """
     diskexpire      342000
     partitionkey    {}
     partitiondate   {}
-    partitionrange  10
+    partitionrange  60
     {}
     ;
 """

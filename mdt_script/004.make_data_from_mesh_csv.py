@@ -16,8 +16,6 @@ except:
     raise Exception("MISSING CSV_PATH")
 
 # 테이블 정보가 있는 경로와 파싱된 데이터가 저장될 경로 지정
-# schema_path = "table_schema/{}".format(data_path.split("/")[-1].replace(".csv", ""))  # 맨처음 테스트했던 csv들
-# schema_path = "table_schema/MDT_JAPAN"  # 125기가짜리 넣을때
 schema_path = "table_schema/JP_MESH_TEST"  # 웹팀과 맞춰볼 jp mesh table
 parsed_data_path = "mesh_data/{}".format(data_path.split("/")[-1].replace(".csv", ""))
 
@@ -57,10 +55,7 @@ with codecs.open(data_path, 'r', encoding='utf-8-sig') as f:
 
             # time_idx가 -1이면 GLOBAL테이블이므로 partition_date 없음
             if time_idx != -1:
-                # partition_date = '{0.year:04}{0.month:02}{0.day:02}{0.hour:02}{0.minute:02}{0.second:02}'\
-                #                    .format(datetime.datetime.strptime(data_list[time_idx-2], "%Y-%m-%d %H:%M:%S"))
-                # partition_date = data_list[time_idx-2].split(".")[0]  # 125GB짜리 할때
-                partition_date = "20190117000000"  # 웹팀 테스트
+                partition_date = "20190117000000"  # partition date는 고정
             else:
                 partition_date = None
 
