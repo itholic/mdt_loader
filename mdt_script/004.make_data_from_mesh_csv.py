@@ -8,18 +8,19 @@ import os
 
 import connection_info as info
 
-# 데이터 경로 받고, 처리할 전체 라인 저장
 try:
     data_path = sys.argv[1]
-    full_line = os.popen('cat {} | wc -l'.format(data_path)).read().rstrip()
+    full_line = int(os.popen('cat {} | wc -l'.format(data_path)).read().rstrip()) - 1
+    mesh_level = int(list(data_path)[-5])
+    X = 1 if mesh_level == 1 \
+            else 2 if mesh_level == 2 \
+            else 200
 except:
     raise Exception("MISSING CSV_PATH")
 
-# 테이블 정보가 있는 경로와 파싱된 데이터가 저장될 경로 지정
-schema_path = "table_schema/JP_MESH_TEST"  # 웹팀과 맞춰볼 jp mesh table
+schema_path = "table_schema/JP_MESH_TEST"
 parsed_data_path = "mesh_data/{}".format(data_path.split("/")[-1].replace(".csv", ""))
 
-# 기존에 데이터가 있다면 삭제하고 진행
 try:
     os.remove(parsed_data_path)
 except:
@@ -48,6 +49,8 @@ with codecs.open(data_path, 'r', encoding='utf-8-sig') as f:
     with open(parsed_data_path, 'a') as pf:
         f.readline()  # csv의 맨 첫째줄 버리기
         line = 1  # 라인수 초기화
+        key = 1
+        full_line_div_x = full_line // X
         for origin_data in f:
             origin_data = origin_data.replace("\"", "").replace(",", info.field_sep).rstrip()
             print("({}/{})".format(line, full_line))
@@ -59,9 +62,11 @@ with codecs.open(data_path, 'r', encoding='utf-8-sig') as f:
             else:
                 partition_date = None
 
-            # TODO: partition_key는 0으로, geo_level은 공백으로 초기화
-            partition_key = "3"
-            geom_level = ""
+            if line % full_line_div_x == 0 and line != full_line:
+                key += 1
+
+            partition_key = "K{}_{}".format(mesh_level, key)
+            geom_level = str(mesh_level)
 
             # geometry 문법, geo_json 만들기
             geom_string_list = []

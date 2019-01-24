@@ -36,7 +36,7 @@ q_create_local = """
     )
     datascope       LOCAL
     ramexpire       30
-    diskexpire      342000
+    diskexpire      259200
     partitionkey    {}
     partitiondate   {}
     partitionrange  60
